@@ -1,3 +1,5 @@
+import uaslp.objetos.list.arraylist.ArrayList;
+import uaslp.objetos.list.arraylist.ArrayListIterator;
 import uaslp.objetos.list.linkedlist.LinkedList;
 import uaslp.objetos.list.linkedlist.LinkedListIterator;
 
@@ -7,53 +9,44 @@ public class Main {
         int tam;
         String data;
 
-        LinkedList list = new LinkedList();
-
+        ArrayList list = new ArrayList();
+        ArrayListIterator iterator = list.getIterator();
+        list.addAtTail("A");
         list.addAtTail("B");
-        list.addAtTail("A");
-        list.addAtTail("A");
-        list.addAtFront("C");
+        list.addAtTail("C");
+        list.addAtFront("D");
+        list.addAtFront("D");
         list.addAtFront("D");
 
-        LinkedListIterator iterator = list.getIterator();
-        while(iterator.hasNext()){
-            String dato = iterator.next();
-            System.out.print("["+dato+"]<----->");
-        }
-        tam=list.getSize();
-        System.out.println("El tamaño es["+tam+"]");
-
-        list.remove(index);
-
         iterator = list.getIterator();
         while(iterator.hasNext()){
             String dato = iterator.next();
             System.out.print("["+dato+"]<----->");
+
         }
-        tam=list.getSize();
-        System.out.println("El tamaño es["+tam+"]");
+        tam = list.getSize();
+        System.out.println("tamaño: "+tam);
 
-        data=list.getAt(3);
-        System.out.println(data);
 
-        list.setAt(3, "A");
-        list.removeAllWithValue("A");
-
+        list.remove(0);
         iterator = list.getIterator();
         while(iterator.hasNext()){
             String dato = iterator.next();
             System.out.print("["+dato+"]<----->");
-        }
-        tam=list.getSize();
-        System.out.println("El tamaño es["+tam+"]");
 
-        list.removeAll();
-        list.addAtTail("B");
+        }
+        tam = list.getSize();
+        System.out.println("tamaño: "+tam);
+
+        list.removeAllWithValue("D");
         iterator = list.getIterator();
         while(iterator.hasNext()){
             String dato = iterator.next();
-            System.out.println("["+dato+"]<----->");
+            System.out.print("["+dato+"]<----->");
+
         }
+        tam = list.getSize();
+        System.out.println("tamaño: "+tam);
 
     }
 }

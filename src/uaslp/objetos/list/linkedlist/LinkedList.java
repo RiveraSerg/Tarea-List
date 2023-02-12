@@ -9,7 +9,7 @@ public class LinkedList {
         head = null;
         size = 0;
     }
-    public void addAtTail(String data) {
+    public void addAtFront(String data) {
         if(head != null){
             head = new Node(data, head, null);
             head.next.previous = head;
@@ -19,7 +19,7 @@ public class LinkedList {
         }
         size++;
     }
-    public void addAtFront(String data){
+    public void addAtTail(String data){
         if(head != null){
             tail = new Node(data, null, tail);
             tail.previous.next = tail;
@@ -40,6 +40,7 @@ public class LinkedList {
         }
         else if(aux == tail){
             tail = aux.previous;
+            tail.next = null;
 
         }else{
             aux.previous.next = aux.next;
