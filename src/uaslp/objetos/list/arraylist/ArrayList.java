@@ -1,28 +1,29 @@
 package uaslp.objetos.list.arraylist;
 
-public class ArrayList {
+import uaslp.objetos.list.Iterator;
+import uaslp.objetos.list.List;
+
+public class ArrayList <T>implements List<T> {
     private static final int INITIAL_SIZE = 2;
-    private String []array;
+    private Object []array;
     private int size;
     public ArrayList(){
-        array = new String[INITIAL_SIZE];
+        array = new Object[INITIAL_SIZE];
     }
-    public void addAtTail(String data){
+    public void addAtTail(T data){
         if(size == array.length){
             increaseSize();
         }
         array[size] = data;
         size++;
     }
-    public void addAtFront(String data){
+    public void addAtFront(T data){
         if(size == array.length){
             increaseSize();
         }
-        String[] newArray = new String[array.length];
+        Object[] newArray = new Object[array.length];
         newArray[0] = data;
-        for(int i = 1; i < array.length; i++){
-            newArray[i] = array[i-1];
-        }
+        System.arraycopy(array, 0, newArray, 1, array.length - 1);
         array = newArray;
 
         size++;
@@ -35,17 +36,18 @@ public class ArrayList {
         size--;
     }
     public void removeAll(){
-        String[] newArray = new String[INITIAL_SIZE];
+        Object[] newArray;
+        newArray = new Object[INITIAL_SIZE];
         array = newArray;
         size = 0;
     }
-    public void setAt(int index, String data){
+    public void setAt(int index, T data){
         array[index] = data;
     }
-    public String getAt(int index){
-        return array[index];
+    public T getAt(int index){
+        return (T) array[index];
     }
-    public void removeAllWithValue(String data){
+    public void removeAllWithValue(T data){
         if(data.equals(array[0])){
             remove(0);
         }
@@ -61,16 +63,14 @@ public class ArrayList {
     }
 
     private void increaseSize(){
-        String[] newArray = new String[array.length * 2];
+        Object[] newArray = new Object[array.length * 2];
 
-        for(int i = 0; i < array.length; i++){
-            newArray[i] = array[i];
-        }
+        System.arraycopy(array, 0, newArray, 0, array.length);
         array = newArray;
 
     }
-    public ArrayListIterator getIterator() {
-        return new ArrayListIterator(array);
+    public Iterator<T> getIterator() {
+        return new ArrayListIterator<>(array);
     }
 }
 

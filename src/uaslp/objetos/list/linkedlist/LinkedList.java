@@ -1,36 +1,39 @@
 package uaslp.objetos.list.linkedlist;
 
-public class LinkedList {
-    private Node tail;
-    private Node head;
+import uaslp.objetos.list.Iterator;
+import uaslp.objetos.list.List;
+
+public class LinkedList <T>implements List <T>{
+    private Node<T> tail;
+    private Node<T> head;
     private int size;
     public LinkedList() {
         tail = null;
         head = null;
         size = 0;
     }
-    public void addAtFront(String data) {
+    public void addAtFront(T data) {
         if(head != null){
-            head = new Node(data, head, null);
+            head = new Node<>(data, head, null);
             head.next.previous = head;
         }
         else{
-            head = tail = new Node(data, null, null);
+            head = tail = new Node<>(data, null, null);
         }
         size++;
     }
-    public void addAtTail(String data){
+    public void addAtTail(T data){
         if(head != null){
-            tail = new Node(data, null, tail);
+            tail = new Node<>(data, null, tail);
             tail.previous.next = tail;
         }
         else{
-            head = tail = new Node(data, null, null);
+            head = tail = new Node<>(data, null, null);
         }
         size++;
     }
     public void remove(int index){
-        Node aux = head;
+        Node<T> aux = head;
         for(int cont = 1; cont<index; cont++){
             aux=aux.next;
         }
@@ -52,34 +55,22 @@ public class LinkedList {
       head = null;
       tail = null;
     }
-    public void setAt(int index, String data){
-        Node aux = head;
+    public void setAt(int index, T data){
+        Node<T> aux = head;
         for(int cont = 1; cont<index; cont++){
             aux=aux.next;
         }
-        if(aux == head){
-            addAtTail(data);
-        }
-        else if(aux == tail){
-            addAtFront(data);
-        }else{
-            Node nuevo = new Node(data, null, null);
-            nuevo.next = aux;
-            nuevo.previous = aux.previous;
-            aux.previous.next = nuevo;
-            aux.previous = nuevo;
-        }
-        size++;
+        aux.data = data;
     }
-    public String getAt(int index){
-        Node aux = head;
+    public T getAt(int index){
+        Node<T> aux = head;
         for(int cont = 1; cont<index; cont++){
             aux=aux.next;
         }
         return aux.data;
     }
-    public void removeAllWithValue(String data){
-        Node aux = head;
+    public void removeAllWithValue(Object data){
+        Node<T> aux = head;
         int cont=0;
         while(aux != null){
             if(data.equals(aux.data)){
@@ -94,8 +85,8 @@ public class LinkedList {
         return size;
     }
 
-    public LinkedListIterator getIterator() {
-        return new LinkedListIterator(head);
+    public Iterator<T> getIterator() {
+        return new LinkedListIterator<>(head);
     }
     }
 
