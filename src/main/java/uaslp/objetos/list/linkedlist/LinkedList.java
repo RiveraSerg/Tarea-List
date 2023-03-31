@@ -2,6 +2,8 @@ package uaslp.objetos.list.linkedlist;
 
 import uaslp.objetos.list.Iterator;
 import uaslp.objetos.list.List;
+import uaslp.objetos.list.exceptions.BadIndexException;
+import uaslp.objetos.list.exceptions.NotNullAllowedException;
 
 public class LinkedList <T>implements List <T>{
     private Node<T> tail;
@@ -12,7 +14,11 @@ public class LinkedList <T>implements List <T>{
         head = null;
         size = 0;
     }
-    public void addAtFront(T data) {
+    public void addAtFront(T data) throws NotNullAllowedException {
+        if(data == null){
+            throw new NotNullAllowedException();
+        }
+
         if(head != null){
             head = new Node<>(data, head, null);
             head.next.previous = head;
@@ -22,7 +28,11 @@ public class LinkedList <T>implements List <T>{
         }
         size++;
     }
-    public void addAtTail(T data){
+    public void addAtTail(T data) throws NotNullAllowedException{
+        if(data == null){
+            throw new NotNullAllowedException();
+        }
+
         if(head != null){
             tail = new Node<>(data, null, tail);
             tail.previous.next = tail;
@@ -32,37 +42,62 @@ public class LinkedList <T>implements List <T>{
         }
         size++;
     }
-    public void remove(int index){
-        Node<T> aux = head;
-        for(int cont = 1; cont<index; cont++){
-            aux=aux.next;
+    public void remove(int index) throws BadIndexException {
+        if (index < 0 || index >= size) {
+            throw new BadIndexException();
         }
-        if(aux == head){
-            head = head.next;
-            head.previous = null;
-        }
-        else if(aux == tail){
-            tail = aux.previous;
-            tail.next = null;
 
-        }else{
+        Node<T> aux = head;
+        for (int i = 0; i < index; i++) {
+            aux = aux.next;
+        }
+
+        if (aux == head) {
+            head = aux.next;
+            if (head != null) {
+                head.previous = null;
+            }
+        } else if (aux == tail) {
+            tail = aux.previous;
+            if (tail != null) {
+                tail.next = null;
+            }
+        } else {
             aux.previous.next = aux.next;
             aux.next.previous = aux.previous;
         }
+
         size--;
     }
+
+
     public void removeAll(){
       head = null;
       tail = null;
+      size = 0;
     }
-    public void setAt(int index, T data){
-        Node<T> aux = head;
-        for(int cont = 1; cont<index; cont++){
-            aux=aux.next;
+    public void setAt(int index, T data) throws NotNullAllowedException, BadIndexException {
+        if (index < 0 || index >= size) {
+            throw new BadIndexException();
         }
+
+        if (data == null) {
+            throw new NotNullAllowedException();
+        }
+
+        Node<T> aux = head;
+        for (int cont = 0; cont < index; cont++) {
+            aux = aux.next;
+        }
+
         aux.data = data;
     }
-    public T getAt(int index){
+
+    public T getAt(int index)throws BadIndexException{
+        if(index < 0 && index > size){
+            throw new BadIndexException();
+        }
+
         Node<T> aux = head;
         for(int cont = 1; cont<index; cont++){
             aux=aux.next;
@@ -74,9 +109,12 @@ public class LinkedList <T>implements List <T>{
         int cont=0;
         while(aux != null){
             if(data.equals(aux.data)){
-                remove(cont);
+                try {
+                    remove(cont);
+                }catch(BadIndexException ignored){
+
+                }
             }
-            cont++;
             aux=aux.next;
         }
     }
