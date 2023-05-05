@@ -1,14 +1,11 @@
-package test;
-
-import java.io.IOException;
 
 import uaslp.objetos.list.Iterator;
 import uaslp.objetos.list.List;
 import uaslp.objetos.list.arraylist.ArrayList;
-import uaslp.objetos.list.exceptions.BadIndexException;
 import uaslp.objetos.list.exceptions.CollectionsException;
 import uaslp.objetos.list.exceptions.NotNullAllowedException;
 import uaslp.objetos.list.linkedlist.LinkedList;
+
 
 public class Main {
 

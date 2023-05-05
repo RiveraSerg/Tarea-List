@@ -70,12 +70,12 @@ public class LinkedList <T>implements List <T>{
         size--;
     }
 
-
     public void removeAll(){
       head = null;
       tail = null;
       size = 0;
     }
+
     public void setAt(int index, T data) throws NotNullAllowedException, BadIndexException {
         if (index < 0 || index >= size) {
             throw new BadIndexException();
@@ -99,7 +99,7 @@ public class LinkedList <T>implements List <T>{
         }
 
         Node<T> aux = head;
-        for(int cont = 1; cont<index; cont++){
+        for(int cont = 0; cont<index; cont++){
             aux=aux.next;
         }
         return aux.data;
@@ -108,13 +108,9 @@ public class LinkedList <T>implements List <T>{
         Node<T> aux = head;
         int cont=0;
         while(aux != null){
-            if(data.equals(aux.data)){
-                try {
+            if(data.equals(aux.data))
                     remove(cont);
-                }catch(BadIndexException ignored){
 
-                }
-            }
             aux=aux.next;
         }
     }
@@ -126,5 +122,18 @@ public class LinkedList <T>implements List <T>{
     public Iterator<T> getIterator() {
         return new LinkedListIterator<>(head);
     }
+
+    public boolean isEmpty(){
+        if(head != null){
+            return false;
+        }
+        else
+            return true;
     }
+
+
+
+    }
+
+
 

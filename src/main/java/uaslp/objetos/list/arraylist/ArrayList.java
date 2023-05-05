@@ -108,5 +108,13 @@ public class ArrayList <T>implements List<T> {
         return new ArrayListIterator<>(array, size);
     }
 
+    public boolean isEmpty(){
+        if(array[0]!=null){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 }
 
