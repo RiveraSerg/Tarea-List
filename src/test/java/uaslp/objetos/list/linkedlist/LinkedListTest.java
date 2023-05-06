@@ -343,5 +343,4 @@ public class LinkedListTest {
         Assertions.assertFalse(iterator.hasNext());
     }
 
-
 }

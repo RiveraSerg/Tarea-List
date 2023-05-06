@@ -60,7 +60,7 @@ public class ArrayList <T>implements List<T> {
     }
     public void setAt(int index, T data) throws NotNullAllowedException, BadIndexException{
 
-        if(index < 0 && index > size){
+        if (index < 0 || index >= size) {
             throw new BadIndexException();
         }
 
@@ -75,28 +75,18 @@ public class ArrayList <T>implements List<T> {
     }
     public void removeAllWithValue(T data){
         if(data.equals(array[0])){
-            try {
             remove(0);
             size--;
-            }catch(BadIndexException ignored){
-
-            }
         }
-
         for(int i = 0; i < array.length; i++){
             if(data.equals(array[i])) {
-                try {
                     remove(i);
-                }catch(BadIndexException ignored){
-
-                }
             }
         }
     }
     public int getSize(){
         return size;
     }
-
     private void increaseSize(){
         Object[] newArray = new Object[array.length * 2];
 
